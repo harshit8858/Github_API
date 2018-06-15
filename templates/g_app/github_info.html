@@ -1,0 +1,15 @@
+
+{% block content %}
+
+<h2>GITHUB API</h2>
+<form method="get">
+    <input type="text" name="username" />
+    <button type="submit">Search on GitHub</button>
+</form>
+
+{% if user %}
+    NAME:<b> {{ user.name }}</b> <br />
+    No. of REPO:<b> {{ user.public_repos }}</b> <br />
+{% endif %}
+
+{% endblock %}
