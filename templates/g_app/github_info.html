@@ -2,14 +2,38 @@
 {% block content %}
 
 <h2>GITHUB API</h2>
-<form method="get">
-    <input type="text" name="username" />
-    <button type="submit">Search on GitHub</button>
-</form>
+<!--<form method="get">-->
+    <!--<input type="text" name="username" />-->
+    <!--<button type="submit">Search on GitHub</button>-->
+<!--</form>-->
 
-{% if user %}
-    NAME:<b> {{ user.name }}</b> <br />
-    No. of REPO:<b> {{ user.public_repos }}</b> <br />
-{% endif %}
+<!--{% if user %}-->
+    <!--NAME:<b> {{ user.name }}</b> <br />-->
+    <!--No. of REPO:<b> {{ user.public_repos }}</b> <br />-->
+    <!--LOCATION:<b> {{ user.location }}</b> <br />-->
+    <!--E-Mail:<b> {{ user.email }}</b> <br />-->
+    <!--BIO:<b> {{ user.bio }}</b> <br />-->
+
+<!--{% endif %}-->
+
+
+  <form method="get">
+    <input type="text" name="username">
+    <button type="submit">search on github</button>
+  </form>
+  {% if search_result %}
+    {% if search_result.success %}
+      <p>
+        NAME:<strong>{{ search_result.name|default_if_none:search_result.login }}</strong><br/>
+        No. of REPO:<strong>{{ search_result.public_repos }}</strong><br/>
+        LOCATION:<strong>{{ search_result.location }}</strong><br/>
+        E-Mail:<strong>{{ search_result.email }}</strong><br/>
+        BIO:<strong>{{ search_result.bio }}</strong><br/>
+      </p>
+    {% else %}
+      <p><em>{{ search_result.message }}</em></p>
+    {% endif %}
+    <p>Rate limit: {{ search_result.rate.remaining }}/{{ search_result.rate.limit }}</p>
+  {% endif %}
 
 {% endblock %}
